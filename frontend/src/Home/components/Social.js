@@ -5,10 +5,10 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import TwitterIcon from '@mui/icons-material/Twitter';
 import TelegramIcon from '@mui/icons-material/Telegram';
-import { BscscanIcon } from "../../components/Icons";
-import logo from "../../assets/polygon.svg";
+import ESIcon from "../assets/ESIcon.png";
+import auditLogo from "../assets/audit.png";
 import { config } from "../../config";
-
+import { FaEthereum } from 'react-icons/fa';
 import { styled } from "@mui/system";
 import { useTranslation } from "react-i18next";
 
@@ -36,8 +36,11 @@ export default function Social() {
   return (
     <CardWrapper>
       <CardContent>
-        <Typography variant="h5" borderBottom="2px solid" color="black" >
-          {t("Links & Social Media")}
+        <Typography variant="h5" borderBottom="2px solid" color="black" sx={{display:"flex", justifyContent:"space-between"}}>
+          <span>Links & Social Media</span>
+          {/* <a href="https://www.encryptosecurity.com/AuditRecord?project=53#ETHSnowball" target="_blank" style={{color: 'inherit', textDecoration: 'inherit', display: 'flex', alignItems: 'center'}}>
+            <img src={auditLogo} alt="audit" width="120px"/>
+          </a> */}
         </Typography>
         <Box paddingTop={2} sx={{ display: 'flex', justifyContent: 'space-between'}}>
 
@@ -57,6 +60,14 @@ export default function Social() {
             <img class="u-sm-avatar" src={logo} alt="Polygon" style={{width: '24px'}}></img>
             <SocialText>Scan</SocialText>
           </a> */}
+        </Box>
+        <Box paddingTop={2} sx={{ display: 'flex', justifyContent: 'space-between'}}>
+          <a href="https://www.encryptosecurity.com/AuditRecord?project=53#ETHSnowball" target="_blank" style={{color: 'inherit', textDecoration: 'inherit', display: 'flex', alignItems: 'center'}}>
+            <SocialText>Audited by &nbsp;</SocialText>
+            <span>
+            <img class="u-sm-avatar" src={auditLogo} alt="Polygon" style={{width: '120px'}}></img>
+            </span>
+          </a>
         </Box>
       </CardContent>
     </CardWrapper>

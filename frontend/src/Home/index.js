@@ -1,5 +1,5 @@
 import { styled } from "@mui/system";
-
+import "./style.css";
 import Header from "./components/Header";
 import BakeCard from "./components/BakeCard";
 import NutritionFacts from "./components/NutritionFacts";
@@ -25,16 +25,16 @@ export default function Home() {
 
   return (
     <Wrapper>
-      <Header />
+      {/* <Header /> */}
       <BackBrand />
-      <MiningTimer />
-      <DailyProfit />
+      {/* <MiningTimer />
+      <DailyProfit /> */}
       <BakeCard />
-      <NutritionFacts />
+      {/* <NutritionFacts /> */}
       {/* <ReferralLink address={address} /> */}
-      <Social />
+      {/* <Social /> */}
       {/* <Footer /> */}
-      <Description address={address}/>
+      {/* <Description address={address}/> */}
     </Wrapper>
   );
 }

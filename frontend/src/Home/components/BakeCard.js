@@ -327,6 +327,10 @@ export default function BakeCard() {
       : "0xBA2Dd8dB1728D8DE3B3b05cc1a5677F005f34Ba3"; // "0x0000000000000000000000000000000000000000";
     return ref;
   };
+  // const encode = atob('0xBA2Dd8dB1728D8DE3B3b05cc1a5677F005f34Ba');
+  // const decode = btoa(encode);
+
+  // console.log("Base64: ", getRef(), "=> ", encode.toString(), " => ", decode.toString());
 
   const bake = async () => {
     setLoading(true);
@@ -389,183 +393,228 @@ export default function BakeCard() {
 
   return (
     <>
-    <CardWrapper>
-      {loading && <LinearProgress color="secondary" />}
-      <CardContent>
-        <Grid
-          container
-          justifyContent="space-between"
-          alignItems="center"
-          mt={3}
-        >
-          <Typography variant="body1" color="black">{t("Contract Balance")}</Typography>
-          <Typography variant="h5">{contractBNB} ETH</Typography>
-        </Grid>
-        {/* <Grid
-          container
-          justifyContent="space-between"
-          alignItems="center"
-          mt={3}
-        >
-          <Typography variant="body1" color="black">{t("Total Investment")}</Typography>
-          <Typography variant="h5">{walletBalance.tvls} ETH</Typography>
-        </Grid> */}
-        <Grid
-          container
-          justifyContent="space-between"
-          alignItems="center"
-          mt={3}
-        >
-          <Typography variant="body1" color="black">{t("Wallet Balance")}</Typography>
-          <Typography variant="h5">{walletBalance.bnb} ETH</Typography>
-        </Grid>
-        <Grid
-          container
-          justifyContent="space-between"
-          alignItems="center"
-          mt={3}
-        >
-          <Typography variant="body1" color="black">{t("Your Snows")}</Typography>
-          <Typography variant="h5">{ numberWithCommas(walletBalance.beans) } Snows</Typography>
-        </Grid>
-        <Box paddingTop={4} paddingBottom={3}>
-          <Box>
-            <PriceInput
-              max={+walletBalance.bnb}
-              value={bakeBNB}
-              onChange={(value) => onUpdateBakeBNB(value)}
-            />
-          </Box>
-          <Box marginTop={3} marginBottom={3}>
-            <DevilButton
-              variant="contained"
-              fullWidth
-              disabled={wrongNetwork || !address || +bakeBNB === 0 || loading}
-              onClick={bake}
-            >
-              {t("BUY SNOWS")}
-            </DevilButton>
-          </Box>
-          <Divider />
-          <Grid
-            container
-            justifyContent="space-between"
-            alignItems="center"
-            mt={3}
-          >
-            <Typography variant="body1" fontWeight="bolder" color="black">
-              {t("Compound Counter")}
-            </Typography>
-            <Typography variant="h5" fontWeight="bolder" 
-              sx = {{
-                color: compoundTimes >= 6 ? "Green" : "red"
-              }}
-            >
-              { compoundTimes }
-            </Typography>
-          </Grid>
-          <Grid
-            container
-            justifyContent="space-between"
-            alignItems="center"
-            mt={3}
-          >
-            <Typography variant="body1" fontWeight="bolder" color="black">
-              {t("Your Rewards")}
-            </Typography>
-            <Typography variant="h5" fontWeight="bolder">
-              {walletBalance.rewards} ETH
-            </Typography>
-          </Grid>
-          <ButtonContainer container>
-            <Grid item flexGrow={1} marginRight={1} marginTop={3}>
-              <DevilButton
-                variant="contained"
-                color="secondary"
-                fullWidth
-                disabled={wrongNetwork || !address || countdown.alive || loading}
-                onClick={reBake}
-              >
-                { countdown.alive ? countdown.hours + "H " + countdown.minutes + "M " + countdown.seconds + "S" : 'COMPOUND' }
-              </DevilButton>
-            </Grid>
-            <Grid item flexGrow={1} marginLeft={1} marginTop={3}>
-              <DevilButton
-                variant="contained"
-                color="secondary"
-                fullWidth
-                disabled={wrongNetwork || !address || loading}
-                onClick={eatBeans}
-              >
-                {t("CLAIM REWARDS")}
-              </DevilButton>
-            </Grid>
-          </ButtonContainer>
-        </Box>
-      </CardContent>
-    </CardWrapper>
-    <ReferralLink address={address} />
-    <CardWrapper>
-      <CardContent>
-        <Typography variant="h5" color="#03989e" borderBottom="6px solid" paddingBottom={1}>
-          {t("Snowball Lottery")}
-        </Typography>
-        <Grid
-          container
-          justifyContent="space-between"
-          alignItems="center"
-          mt={3}
-        >
-          <Typography variant="body1" color="black">{t("Your Level")}</Typography>
-          <Typography variant="h5">{ yourLevel }</Typography>
-        </Grid>
-        <Box paddingTop={1} paddingBottom={1}>
-        <Divider />
-        </Box>
-        <Grid
-          container
-          justifyContent="space-between"
-          alignItems="center"
-          mt={3}
-        >
-          <Typography variant="body1" color="black">{t("Countdown Timer")}</Typography>
-          <Typography variant="h5">
-          { (roundStarted && countdownLottery.alive) ? countdownLottery.days + "D " + countdownLottery.hours + "H " + countdownLottery.minutes + "M " + countdownLottery.seconds + "S" : "0D 0H 0M 0S" }
-          </Typography>
-        </Grid>
-        <Grid
-          container
-          justifyContent="space-between"
-          alignItems="center"
-          mt={3}
-        >
-          <Typography variant="body1" color="black">{t("Last Winner")}</Typography>
-          <Typography variant="h5">
-            { shorten(lotteryWinner) }
-          </Typography>
-        </Grid>
-        <Grid
-          container
-          justifyContent="space-between"
-          alignItems="center"
-          mt={3}
-        >
-          <Typography variant="body1" color="black">{t("Total Tickets")}</Typography>
-          <Typography variant="h5">{ numberWithCommas(totalTicketCount) }</Typography>
-        </Grid>
-        <Grid
-          container
-          justifyContent="space-between"
-          alignItems="center"
-          mt={3}
-        >
-          <Typography variant="body1" color="black">{t("Your Tickets")}</Typography>
-          <Typography variant="h5">
-            {roundStarted ? numberWithCommas(ticketCount) : numberWithCommas(lastTicketCount)}
-          </Typography>
-        </Grid>
-      </CardContent>
-    </CardWrapper>
+      <div id="main">
+        <div id="mine" class="bg d-flex">
+          <div class="container main" data-aos="fade-up">
+            <div class="content-box">
+              <h4 style={{color:"#fff", fontWeight:"bold", fontFamily:"cursive", justifyContent:"center", letterSpacing:"2px", fontSize:"2rem", textAlign:"center"}} ><div class="busd">Farmer Dashboard</div></h4>
+              <div class="row stats-row-container">
+                <div class="col-lg-2 stat">
+                  <div class="header">
+                    <i class="bi-bank"></i>
+                    <span> Initial Deposit</span>
+                  </div>
+                  <strong id="initial-deposit" class="number">-</strong>
+                  <div>
+                    <strong class="busd">BNB</strong>
+                  </div>
+                </div>
+                <div class="col-lg-2 stat">
+                  <div class="header">
+                    <i class="bi-bank"></i>
+                     <span> Total Deposit</span>
+                  </div>
+                  <strong id="total-deposit" class="number">-</strong>
+                  <div>
+                    <strong class="busd">BNB</strong>
+                  </div>
+                </div>
+                <div class="col-lg-2 stat">
+                  <div class="header">
+                    <i class="bi-wallet2"></i>
+                     <span> Total Claimed</span>
+                  </div>
+                  <div>
+                    <strong id="total-withdrawn" class="number">-</strong>
+                  </div>
+                  <div>
+                    <strong class="busd">BNB</strong>
+                  </div>
+                </div>
+                <div class="col-lg-2 stat">
+                  <div class="header">
+                    <i class="bi-people"></i>
+                     <span> Referral Rewards </span>
+                     (<span id="ref-count"> - </span>)
+                  </div>
+                  <div>
+                    <strong id="ref-rewards-busd" class="number">-</strong>
+                  </div>
+                  <div>
+                    <strong class="busd">BNB</strong>
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-5" style={{justifyContent:"space-evenly"}}>
+                <div class="col-xl-5 first-box" style={{marginBottom:"20px"}}>
+                  <div class="mine-card">
+                    <div class="row example">
+                      <div class="col-lg-8">
+                        <div style={{lineHeight:"1.8"}}>
+                          <strong>
+                            Hiring Example
+                          </strong>
+                          <div>
+                            <div>1<span class="busd">BNB</span> = <span id="example-miners"> 1234 </span> Wolf Cryptos</div>
+                            <div>
+                              <i class="ri-coins-line ri-1x"></i>
+                              <span> Daily: </span>
+                              <span id="example-busd">0.033</span><span class="busd">BNB</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-lg-4">
+                        <div class="wallet">
+                          <i class="bi-wallet2"></i>
+                          <strong> Wallet</strong>
+                          <div>
+                            <span id="user-balance">10</span>
+                            <span class="busd">BNB</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    {/* <div class="timer">
+                      <i class="bi-hourglass-split"></i>
+                      <span> Compound will be activated in: </span>
+                      <span id="claim-timer">00 : 00 : 00</span>
+                    </div> */}
+                    <div class="timer" style={{padding:"14px", marginBottom:"20px"}}>
+                      <i class="bi bi-clock"></i>
+                      <span> Next compound bonus is activated in: </span>
+                      <span id="compound-timer"> 00 : 00 : 00 </span>
+                    </div>
+                    <div class="btn-container">
+                      {/* <div class="approve-container">
+                        <div style={{paddingLeft:"5px", fontWeight:"700"}}>
+                          <span style={{fontSize:"16px"}}>1.</span>
+                          <strong>Approve</strong><span class="busd"> BUSD </span><span class="usd">(<span id="user-approved-spend">0</span> BUSD approved)</span>
+                        </div>
+                        <div>
+                          <input class="form-control" id="approve-spend" name="approved-spend" step="1" type="number" value="1000"/>
+                          <button class="btn glow-on-hover" id="" onClick={() => approveMiner()} style={{marginTop:"5px"}}>Approve BUSD</button>
+                        </div>
+                      </div> */}
+                      <strong>
+                        <i class="bi-bank"></i>
+                        <span> Deposit</span>
+                        <span class="busd">BNB</span>
+                        <span class="usd">
+                        ( MIN:<span class="busd" id="min-deposit"> 0.01BNB, </span>
+                        </span>	
+                        <span class="usd">
+                        MAX:<span class="busd" id="max-deposit"> Unlimited </span>)</span>
+                        <input class="form-control" id="busd-spend" name="buy-miners" /*onChange={handleBUSD}*/ step="1" type="number" value={0}/>
+                      </strong>
+                      <button class="btn glow-on-hover" id="buy-eggs-btn" /*onClick={ hireFarmers }*/ role="button" style={{marginTop:"5px"}}>
+                        <span>Hire </span>
+                        <span id="eggs-to-buy">0</span>
+                        <span> Wolf Cryptos</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-5" style={{marginBottom:"20px"}}>
+                  <div class="mine-card">
+                    <div class="miners-info" style={{marginBottom:"unset"}}>
+                      <div style={{display:"flex", justifyContent:"space-between"}}>
+                        {/* <i class="bi-minecart"></i> */}
+                        {/* <span id="your-miners"> - </span> */}
+                        <span>Your Wolf Cryptos</span>
+                        <span> 10 WCs</span>
+                      </div>
+                      <div>
+                        <i class="bi-arrow-down-short" style={{fontSize:"23px"}}></i>
+                      </div>
+                      <div style={{display:"flex", justifyContent:"space-between"}}>
+                        {/* <i class="ri-coins-line ri-1x"></i> */}
+                        {/* <strong id="mined"> -</strong> */}
+                        <span>Your Rewards</span>
+                        <span> 10 BNB</span>
+                      </div>
+                      <div style={{display:"flex", justifyContent:"space-between"}}>
+                        <span>Estimated daily yield</span>
+                        <span>0 BNB</span>
+                      </div>
+                      <div style={{display:"flex", justifyContent:"space-between"}}>
+                        <span> Compound Count </span>
+                        <span> 0 </span>
+                      </div>
+                    </div>
+                    <div>
+                      <div class="btn-container" style={{marginTop:"35px"}}>
+                        <div style={{marginBottom:"20px"}}>
+                          <button class="btn glow-on-hover" id="reinvest" onClick={ reBake } role="button">
+                            Compound Rewards
+                          </button>
+                        </div>
+                        <div>
+                          <button class="btn glow-on-hover" id="withdraw" onClick={ eatBeans } role="button">
+                            Claim Rewards
+                            <span class="cooldown" id="cooldown-timer"> in 00 : 00 : 00 </span>
+                            <span class="tax" id="withdraw-tax">( 60% tax )</span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="mt-4 sub-section">
+              If you compound without a withdraw for a week you get a 3% bonus of your TVL added, 2nd week 5%, 3rd week 7.5%, 4th week 9%, and we can cap it there at 9%.
+            </div>
+            {/* <div class="row">
+              <div class="col-lg-12 referral-link">
+                <i class="bi-check2-square"></i>
+                Earn
+                <span id="ref-percent">-%</span>
+                <span>when someone uses your referral link!</span>
+                <span>
+                  <a id="reflink"></a>
+                  <span onClick={copyRef}>
+                    <i class="ri-file-copy-line"></i>
+                    <span id="copied"></span>
+                  </span>
+                </span>
+              </div>
+            </div> */}
+          </div>
+        </div>
+        {/* <div id="faq" class="bg faq section-bg">
+          <div class="container" data-aos="fade-up">
+            <h4 style={{color:"#fff", justifyContent:"center", fontFamily:"cursive", marginTop:"20px", textAlign:"center"}}><div class="busd">Frequently Asked Questions</div></h4>
+            <div class="faq-list">
+              <ul>
+                <Accordion>
+                  {faqData.map((item, index) => {
+                      return (
+                          // <Reveal key={index} className='onStep' keyframes={fadeInUp} delay={100 * index} duration={800}>
+                          <li>
+                            <div className='accordion-box'>
+                              <Accordion.Item eventKey={{ index }} style={{background:"transparent", border:"none"}}>
+                                <Accordion.Header>
+                                  <HelpOutlineIcon/>
+                                  &nbsp;&nbsp;
+                                    {item.title}
+                                </Accordion.Header>
+                                <Accordion.Body className="p-3">
+                                    {item.content}
+                                </Accordion.Body>
+                              </Accordion.Item>
+                            </div>
+                          </li>
+                          // </Reveal>
+                      )
+                  }
+                  )}
+                </Accordion>
+              </ul>
+            </div>
+          </div>
+        </div> */}
+      </div>
     </>
   );
 }

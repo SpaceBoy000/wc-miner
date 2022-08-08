@@ -12,12 +12,13 @@ const theme = createTheme({
       main: "#047d82",
     },
     text: {
-      primary: "#17215E",
+      primary: "black",
+      secondary: "red",
     },
   },
   button: {
     primary: {
-      main: "#047d82",
+      main: "black",
     },
     secondary: {
       main: '#03989e',
