@@ -10,6 +10,12 @@ import { useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi"
 import { config } from "../../config"
 
+import TwitterIcon from '@mui/icons-material/Twitter';  
+import TelegramIcon from '@mui/icons-material/Telegram';
+import { FaDiscord } from 'react-icons/fa';
+import { BscscanIcon } from "../../components/Icons";
+import { SiBinance } from 'react-icons/si';
+
 const Wrapper = styled("div")(({ theme }) => ({
   // position: "fixed",
   // zIndex: "40",
@@ -93,7 +99,8 @@ export default function Header() {
                       fontWeight:"bolder"
                     }}
                   >
-                    Twitter
+                    <span> Twitter </span>
+                    {/* <TwitterIcon/> */}
                   </a>
                 </div>
                 <div onClick={() => {
@@ -162,7 +169,8 @@ export default function Header() {
                 color:"red"
               }}
             >
-                Contract
+                <span>Contract </span>
+                <SiBinance/>
             </a>
           </Item>
           <Item>
@@ -173,7 +181,8 @@ export default function Header() {
                 color:"red"
               }}
             >
-                Twitter
+                <span>Twitter </span>
+                <TwitterIcon/>
             </a>
           </Item>
           <Item>
@@ -184,7 +193,8 @@ export default function Header() {
                 color:"red"
               }}
             >
-                Discord
+                <span>Discord </span>
+                <FaDiscord/>
             </a>
           </Item>
           <Item>
@@ -195,7 +205,8 @@ export default function Header() {
                 color:"red"
               }}
             >
-                Telegram
+              <span>Telegram </span>
+              <TelegramIcon/>
             </a>
           </Item>
         </Grid>

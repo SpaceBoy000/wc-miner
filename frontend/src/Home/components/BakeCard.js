@@ -562,8 +562,8 @@ export default function BakeCard() {
                 </div>
               </div>
             </div>
-            <div class="mt-4 sub-section">
-              If you compound without a withdraw for a week you get a 3% bonus of your TVL added, 2nd week 5%, 3rd week 7.5%, 4th week 9%, and we can cap it there at 9%.
+            <div class="content-box">
+              
             </div>
             {/* <div class="row">
               <div class="col-lg-12 referral-link">
