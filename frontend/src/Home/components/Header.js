@@ -43,10 +43,13 @@ const AdvPanel = styled("div")(({ theme }) => ({
 const Item = styled('div')(({ theme }) => ({
   display: 'flex',
   justifyContent: 'center',
-  padding: '20px 0 20px 0',
+  padding: '5px 20px',
   textAlign: 'center',
-  fontSize: "25px",
+  fontSize: "20px",
   color: theme.palette.text.secondary,
+  // border: "solid white 2px",
+  borderRadius: "1.25rem",
+  background: "#000000b8"
 }));
 
 const ItemConnect = styled('div')(({ theme }) => ({
@@ -91,7 +94,7 @@ export default function Header() {
                 <div onClick={() => {
                   setMobile(true)
                 }}>
-                  <a href="https://twitter.com/wolfcryptominer" target="_blank"
+                  <a href="https://twitter.com/WolfOfCrypto885" target="_blank"
                     className="stable_btn"
                     style={{
                       color: 'white',
@@ -106,7 +109,7 @@ export default function Header() {
                 <div onClick={() => {
                   setMobile(true)
                 }}>
-                  <a href="https://discord.gg/w37nSmpd" target="__blank"
+                  <a href="https://discord.gg/bBwPdV6q8U" target="__blank"
                     className="bridge_btn"
                     style={{
                       color: 'white',
@@ -120,7 +123,7 @@ export default function Header() {
                 <div onClick={() => {
                   setMobile(true)
                 }}>
-                  <a href="https://t.me/wolfcryptomier" target="__blank"
+                  <a href="https://t.me/+vyNxJgY6zwAzNmY8" target="__blank"
                     className="liquidity_btn"
                     style={{
                       color: 'white',
@@ -152,21 +155,21 @@ export default function Header() {
       : null }
    
       <Grid container spacing={2}>
-        <Grid item xs={6} sm={3}>
-          <Item>
-            <img src="./favicon.png" alt="" style={{ maxHeight: "64px", marginRight: "16px" }} />
+        <Grid item xs={6} sm={2.7}>
+          <div style={{textAlign:"center"}}>
+            <img src="./favicon.png" alt="" style={{ padding: '5px 20px', maxHeight: "96px", marginRight: "16px" }} />
             {/* <Typography variant="h5" textAlign="center" color='#03989e'>
               WC Miner
             </Typography> */}
-          </Item>
+          </div>
         </Grid>
-        <Grid className="header_menu" item xs={12} sm={6}>
+        <Grid className="header_menu" item xs={12} sm={6.6}>
           <Item>
             <a href={ config.scanLink } target="_blank"
               style={{
                 textDecoration: 'none',
                 fontWeight: "bolder",
-                color:"red"
+                color:"#ffbb00"
               }}
             >
                 <span>Contract </span>
@@ -174,11 +177,11 @@ export default function Header() {
             </a>
           </Item>
           <Item>
-            <a href="https://twitter.com/wolfcryptominer" target="_blank"
+            <a href="https://twitter.com/WolfOfCrypto885" target="_blank"
               style={{
                 textDecoration: 'none',
                 fontWeight: "bolder",
-                color:"red"
+                color:"#ffbb00"
               }}
             >
                 <span>Twitter </span>
@@ -186,11 +189,11 @@ export default function Header() {
             </a>
           </Item>
           <Item>
-            <a href="https://discord.gg/w37nSmpd" target="_blank"
+            <a href="https://discord.gg/bBwPdV6q8U" target="_blank"
               style={{
                 textDecoration: 'none',
                 fontWeight: "bolder",
-                color:"red"
+                color:"#ffbb00"
               }}
             >
                 <span>Discord </span>
@@ -198,11 +201,11 @@ export default function Header() {
             </a>
           </Item>
           <Item>
-            <a href="https://t.me/wolfcryptomier" target="__blank"
+            <a href="https://t.me/+vyNxJgY6zwAzNmY8" target="__blank"
               style={{
                 textDecoration: 'none',
                 fontWeight: "bolder",
-                color:"red"
+                color:"#ffbb00"
               }}
             >
               <span>Telegram </span>
@@ -210,7 +213,7 @@ export default function Header() {
             </a>
           </Item>
         </Grid>
-        <Grid item xs={6} sm={3} sx={{alignSelf:"center"}}>
+        <Grid item xs={6} sm={2.7} sx={{alignSelf:"center"}}>
           <ItemConnect>
             <Connect />
           </ItemConnect>
@@ -224,10 +227,6 @@ export default function Header() {
           </div>
         </Grid>
       </Grid>
-
-      {/* <Typography variant="h3" textAlign="center" color="black" marginTop={'40px'}>
-        The New Wave of Miner Integrated with NFT
-      </Typography> */}
     </Wrapper>
   );
 }

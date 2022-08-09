@@ -34,7 +34,7 @@ export default function Home() {
       {/* <ReferralLink address={address} /> */}
       {/* <Social /> */}
       {/* <Footer /> */}
-      {/* <Description address={address}/> */}
+      <Description address={address}/>
     </Wrapper>
   );
 }

@@ -9,16 +9,16 @@ const theme = createTheme({
       main: "#f4b52d",
     },
     purple: {
-      main: "#047d82",
+      main: "#000000b8",
     },
     text: {
       primary: "black",
-      secondary: "red",
+      secondary: "#ffbb00",
     },
   },
   button: {
     primary: {
-      main: "black",
+      main: "#000000e6",
     },
     secondary: {
       main: '#03989e',

@@ -39,7 +39,7 @@ const CustomCardHeader = styled(Typography)(({ theme }) => ({
   // textDecorationColor: "#0abcf9",
   textDecorationThickness: "2px",
   textUnderlinePosition: "under",
-  color: theme.typography.allVariants.color,
+  color: "#ffbb00",
   fontSize: '30px'
 }))
 
@@ -49,6 +49,17 @@ const UnderlineTypography = styled(Typography)(({ theme }) => ({
   textDecorationThickness: "1px",
   textUnderlinePosition: "under",
   cursor: 'pointer'
+}))
+
+const RefBox = styled(Box)(({ theme }) => ({
+  border:"solid 2px #ffbb00",
+  borderRadius:"30px",
+  width:"fit-content",
+  padding:"10px",
+  "&: hover": {
+    borderColor: "white",
+    color:"#ffbb00",
+  }
 }))
 
 
@@ -100,61 +111,86 @@ export default function Description({ address }) {
                         {`How does it work?`}
                       </CustomCardHeader>
                       <Typography variant="body2" sx={{ mt: 2 }}>
-                        The ETH Snowball is a DAPP built on the Ethereum and part of the Snow Yuga Labs.
-                        The goal of the game is to build your SNOWBALL faster than other players. 
-                        In return, you'll earn more ETH. 
-                        These snows allow you to get a daily yield of up to 3% of your snows' value.
-                        The first 5,000 users will have access to NFT Freemint's whitelist of our Snow Yuga Labs.
+                        You invest $BNB and hire Wolf Miners who work for you forever! Wolf Miners can also be viewed as your shares in the contract.  
+                        Your value in the contract can rise and fall based on the combined actions of the community. 
+                        But, unlike your average coins and tokens, WC Miner allows you to stabilize and increase your TVL by taking long-term advantage of its compound feature. <br/><br/>
                       </Typography>
+                      {/* <CustomCardHeader variant="body4">
+                        {`Rewards:`}
+                      </CustomCardHeader>
+                      <Typography variant="body2" sx={{ mt: 2 }}>
+                        We added a feature that will incentivize the community for utilizing the compound feature!<br/><br/>
+                          •	1st week 0 withdraws and compound daily 3% bonus added to TVL<br/>
+                          •	2nd week 0 withdraws and compound daily 5% bonus added to TVL<br/>
+                          •	3rd week 0 withdraws and compound daily 7% bonus added to TVL<br/>
+                          •	4th week 0 withdraws and compound daily 9% bonus added to TVL<br/><br/>
+                        Once you withdraw rewards restart back to zero! 
+                      </Typography> */}
                     </CardWrapper2>
+                    
                   </Grid>
-
                   <Grid item xs={12} sm={12} md={12} sx={{ display: 'flex', justifyContent: 'end' }}>
+                    <CardWrapper2>
+                      <CustomCardHeader variant="body4">
+                        {`Rewards`}
+                      </CustomCardHeader>
+                      <Typography variant="body2" sx={{ mt: 2 }}>
+                        We added a feature that will incentivize the community for utilizing the compound feature!<br/><br/>
+                          •	1st week 0 withdraws and compound daily 3% bonus added to TVL<br/>
+                          •	2nd week 0 withdraws and compound daily 5% bonus added to TVL<br/>
+                          •	3rd week 0 withdraws and compound daily 7% bonus added to TVL<br/>
+                          •	4th week 0 withdraws and compound daily 9% bonus added to TVL<br/><br/>
+                        Once you withdraw rewards restart back to zero! 
+                        </Typography>
+                      </CardWrapper2>
+                    </Grid>
+                  {/* <Grid item xs={12} sm={12} md={12} sx={{ display: 'flex', justifyContent: 'end' }}>
                     <CardWrapper2>
                       <CustomCardHeader variant="body4">
                         {`Verified Public Contract`}
                       </CustomCardHeader>
                       <Typography variant="body2" sx={{ mt: 2 }}>
-                        <span>ETH Snowball contract is visible to
+                        <span>WC Miner contract is visible to
                         anyone and it had been verified. Check
                         it on </span>
                         <a href={ config.scanLink } target="_blank" style={{color: 'white'}}>
-                          ETH Scan
+                          BNB Scan
                         </a>
                         .
                       </Typography>
                     </CardWrapper2>
-                  </Grid>
+                  </Grid> */}
                 </Grid>
               </Grid>
 
               <Grid item xs={12} sm={6} md={6} sx={{ display: 'flex', justifyContent: 'start' }}>
                 <CardWrapper2>
                   <CustomCardHeader variant="body4">
-                    {`ETH Snowball`}
+                    {`WC Miner`}
                   </CustomCardHeader>
                   <Typography variant="body2" sx={{ mt: 2 }}>
-                    ETH Snowball is becoming the greatest community on Ethereum providing the highest sustainable returns possible.
-                    To start generating $ETH you need to purchase "Snow" using $ETH. The more Snows you have, the more $ETH you generate. More Snows mean a higher personal TVL.
-                    When you have Snows generating $ETH, you have to compound at least 6 times before claiming your $ETH. If you don't respect this rule, you will face a 50% penalty fee on your reward balance.
-                    This penalty fee stays in the TVL and doesn't move from the contract and this feature is to ensure the longevity of the project.
-                    Your Snows will generate 3% interest of your total TVL.
-                    Your Snows will work for you indefinitely, and the more Snows you accumulate, the more $ETH you'll can.
+                    WC Miner is part of Binance chain to create as many opportunities as possible and enrich the ecosystem.
+                    To use this platform you need to connect your wallet (MetaMask, TrustWallet) using the Binance Smart Chain.
+                    To start generating $BNB you need to purchase "Wolf Miners" using $BNB. The more Wolf Miners you have, the more $BNB you generate.
+                    More Wolf Miners mean a higher personal TVL. When you have Wolf Miners generating $BNB, you can always WITHDRAW or COMPOUND your $BNB to let the compound interest work its magic.
+                    Your Wolf Miners will generate 3.5% interest of your total TVL. 
+                    Your Miners will work for you indefinitely, and the more Miners you accumulate, you'll.... Well you already know the rest. 
+                    Stay tuned to learn more about our other projects.
                   </Typography>
                 </CardWrapper2>
               </Grid>
 
             </Grid>
           </Grid>
-          {/* <Grid item xs={12} sm={12} md={12} sx={{ display: 'flex', justifyContent: 'center' }}>
+          <Grid item xs={12} sm={12} md={12} sx={{ display: 'flex', justifyContent: 'center' }}>
             <CardWrapper3>
               <CustomCardHeader variant="body4">
                 {`Referrals`}
               </CustomCardHeader>
               <Typography variant="body2" sx={{ mt: 2, paddingBottom: 2 }}>
-                Earn 5% of the ETH used to buy Snows from anyone who uses your referral link:
+                Earn 12% referral fee when anyone uses your link to hire Wolf miners:
               </Typography>
-              <Box sx={{border:"solid 2px white", width:"fit-content", padding:"10px"}}>
+              <RefBox>
                 <Typography variant="body2" sx={{cursor:"pointer"}} onClick={() => copyToClipboard(link)}>
                   {
                     address ?
@@ -162,9 +198,9 @@ export default function Description({ address }) {
                       : 'Please connect your wallet to see your referral link.'
                   }
                 </Typography>
-              </Box>
+              </RefBox>
             </CardWrapper3>
-          </Grid> */}
+          </Grid>
         </Grid>
 
       </Grid>

@@ -18,11 +18,12 @@ const ConnectButton = styled('button')(({ theme }) => ({
   lineHeight: "1.5rem",
   textTransform: "uppercase",
   letterSpacing: "0.05em",
-  background: theme.button.primary.main,
+  background: "#000000b8",
   maxHeight: "40px",
   marginTop: "auto",
   marginBottom: "auto",
-  color: theme.typography.allVariants.color,
+  // color: theme.typography.allVariants.color,
+  color:"#ffbb00",
   [theme.breakpoints.down("md")]: {
     
   },

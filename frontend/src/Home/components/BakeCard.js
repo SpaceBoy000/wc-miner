@@ -395,9 +395,9 @@ export default function BakeCard() {
     <>
       <div id="main">
         <div id="mine" class="bg d-flex">
+          <div className="adsbox"> ADS 1</div>
           <div class="container main" data-aos="fade-up">
             <div class="content-box">
-              <h4 style={{color:"#fff", fontWeight:"bold", fontFamily:"cursive", justifyContent:"center", letterSpacing:"2px", fontSize:"2rem", textAlign:"center"}} ><div class="busd">Farmer Dashboard</div></h4>
               <div class="row stats-row-container">
                 <div class="col-lg-2 stat">
                   <div class="header">
@@ -435,7 +435,6 @@ export default function BakeCard() {
                   <div class="header">
                     <i class="bi-people"></i>
                      <span> Referral Rewards </span>
-                     (<span id="ref-count"> - </span>)
                   </div>
                   <div>
                     <strong id="ref-rewards-busd" class="number">-</strong>
@@ -446,19 +445,20 @@ export default function BakeCard() {
                 </div>
               </div>
               <div class="row mt-5" style={{justifyContent:"space-evenly"}}>
-                <div class="col-xl-5 first-box" style={{marginBottom:"20px"}}>
+
+                <div class="col-xl-6 first-box">
                   <div class="mine-card">
                     <div class="row example">
                       <div class="col-lg-8">
                         <div style={{lineHeight:"1.8"}}>
-                          <strong>
+                          <strong className="subtitle2">
                             Hiring Example
                           </strong>
                           <div>
-                            <div>1<span class="busd">BNB</span> = <span id="example-miners"> 1234 </span> Wolf Cryptos</div>
+                            <div>1<span class="busd">BNB</span> = <span id="example-miners"> 1234 </span> Wolf Miners</div>
                             <div>
                               <i class="ri-coins-line ri-1x"></i>
-                              <span> Daily: </span>
+                              <span className="subtitle2"> Daily: </span>
                               <span id="example-busd">0.033</span><span class="busd">BNB</span>
                             </div>
                           </div>
@@ -467,7 +467,7 @@ export default function BakeCard() {
                       <div class="col-lg-4">
                         <div class="wallet">
                           <i class="bi-wallet2"></i>
-                          <strong> Wallet</strong>
+                          <strong className="subtitle2"> Wallet</strong>
                           <div>
                             <span id="user-balance">10</span>
                             <span class="busd">BNB</span>
@@ -480,11 +480,11 @@ export default function BakeCard() {
                       <span> Compound will be activated in: </span>
                       <span id="claim-timer">00 : 00 : 00</span>
                     </div> */}
-                    <div class="timer" style={{padding:"14px", marginBottom:"20px"}}>
+                    {/* <div class="timer" style={{padding:"14px", marginBottom:"20px"}}>
                       <i class="bi bi-clock"></i>
                       <span> Next compound bonus is activated in: </span>
                       <span id="compound-timer"> 00 : 00 : 00 </span>
-                    </div>
+                    </div> */}
                     <div class="btn-container">
                       {/* <div class="approve-container">
                         <div style={{paddingLeft:"5px", fontWeight:"700"}}>
@@ -509,20 +509,20 @@ export default function BakeCard() {
                       </strong>
                       <button class="btn glow-on-hover" id="buy-eggs-btn" /*onClick={ hireFarmers }*/ role="button" style={{marginTop:"5px"}}>
                         <span>Hire </span>
-                        <span id="eggs-to-buy">0</span>
-                        <span> Wolf Cryptos</span>
+                        {/* <span id="eggs-to-buy">0</span> */}
+                        <span> Wolf Miners</span>
                       </button>
                     </div>
                   </div>
                 </div>
-                <div class="col-xl-5" style={{marginBottom:"20px"}}>
+                <div class="col-xl-6 first-box">
                   <div class="mine-card">
                     <div class="miners-info" style={{marginBottom:"unset"}}>
                       <div style={{display:"flex", justifyContent:"space-between"}}>
                         {/* <i class="bi-minecart"></i> */}
                         {/* <span id="your-miners"> - </span> */}
-                        <span>Your Wolf Cryptos</span>
-                        <span> 10 WCs</span>
+                        <span className="subtitle2">Your Wolf Miners</span>
+                        <span> 10 Wolf Miners</span>
                       </div>
                       <div>
                         <i class="bi-arrow-down-short" style={{fontSize:"23px"}}></i>
@@ -530,16 +530,16 @@ export default function BakeCard() {
                       <div style={{display:"flex", justifyContent:"space-between"}}>
                         {/* <i class="ri-coins-line ri-1x"></i> */}
                         {/* <strong id="mined"> -</strong> */}
-                        <span>Your Rewards</span>
+                        <span className="subtitle2">Your Rewards</span>
                         <span> 10 BNB</span>
                       </div>
                       <div style={{display:"flex", justifyContent:"space-between"}}>
-                        <span>Estimated daily yield</span>
-                        <span>0 BNB</span>
+                        <span className="subtitle2">Estimated daily yield</span>
+                        <span>0.33 BNB</span>
                       </div>
                       <div style={{display:"flex", justifyContent:"space-between"}}>
-                        <span> Compound Count </span>
-                        <span> 0 </span>
+                        <span className="subtitle2"> Compound Count </span>
+                        <span> 4 </span>
                       </div>
                     </div>
                     <div>
@@ -553,7 +553,7 @@ export default function BakeCard() {
                           <button class="btn glow-on-hover" id="withdraw" onClick={ eatBeans } role="button">
                             Claim Rewards
                             <span class="cooldown" id="cooldown-timer"> in 00 : 00 : 00 </span>
-                            <span class="tax" id="withdraw-tax">( 60% tax )</span>
+                            {/* <span class="tax" id="withdraw-tax">( 60% tax )</span> */}
                           </button>
                         </div>
                       </div>
@@ -562,58 +562,9 @@ export default function BakeCard() {
                 </div>
               </div>
             </div>
-            <div class="content-box">
-              
-            </div>
-            {/* <div class="row">
-              <div class="col-lg-12 referral-link">
-                <i class="bi-check2-square"></i>
-                Earn
-                <span id="ref-percent">-%</span>
-                <span>when someone uses your referral link!</span>
-                <span>
-                  <a id="reflink"></a>
-                  <span onClick={copyRef}>
-                    <i class="ri-file-copy-line"></i>
-                    <span id="copied"></span>
-                  </span>
-                </span>
-              </div>
-            </div> */}
           </div>
+          <div className="adsbox"> ADS 2</div>
         </div>
-        {/* <div id="faq" class="bg faq section-bg">
-          <div class="container" data-aos="fade-up">
-            <h4 style={{color:"#fff", justifyContent:"center", fontFamily:"cursive", marginTop:"20px", textAlign:"center"}}><div class="busd">Frequently Asked Questions</div></h4>
-            <div class="faq-list">
-              <ul>
-                <Accordion>
-                  {faqData.map((item, index) => {
-                      return (
-                          // <Reveal key={index} className='onStep' keyframes={fadeInUp} delay={100 * index} duration={800}>
-                          <li>
-                            <div className='accordion-box'>
-                              <Accordion.Item eventKey={{ index }} style={{background:"transparent", border:"none"}}>
-                                <Accordion.Header>
-                                  <HelpOutlineIcon/>
-                                  &nbsp;&nbsp;
-                                    {item.title}
-                                </Accordion.Header>
-                                <Accordion.Body className="p-3">
-                                    {item.content}
-                                </Accordion.Body>
-                              </Accordion.Item>
-                            </div>
-                          </li>
-                          // </Reveal>
-                      )
-                  }
-                  )}
-                </Accordion>
-              </ul>
-            </div>
-          </div>
-        </div> */}
       </div>
     </>
   );

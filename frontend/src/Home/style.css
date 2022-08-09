@@ -463,7 +463,7 @@
   
     --------------------------------------------------------------*/
   .busd {
-    color: var(--token);
+    color: white;
     font-weight: bold;
     padding: 0px 5px 0px 5px;
   }
@@ -607,14 +607,14 @@
     overflow-wrap: anywhere;
   }
   @media (max-width: 768px) {
-    /* #main {
-      margin-top: -200px;
-    } */
+    #main .container { 
+      max-width: 100% !important;
+    }
   }
   
   #main .container {
     /* background: #624b08; */
-    max-width: 1200px;
+    max-width: 60%;
     margin: 0 auto;
     /* border-radius: 15px;
     border-style: solid;
@@ -623,8 +623,9 @@
   }
   
   #main .content-box {
-    padding: 10px;
+    /* padding: 10px; */
     border-radius: 18px;
+    width: 100%;
   }
   
   #main .flexi {
@@ -699,14 +700,14 @@
     } */
   
   .stats-row-container .stat {
-    color: black;
-    /* background: #047d82; */
+    color: #ffbb00;
+    background: #000000b8;
     /* backdrop-filter: blur(8px);
-    border: 1px solid #000000;
-    border-radius: 18px; */
+    border: 1px solid #000000; */
+    border-radius: 0.5rem;
     box-shadow: rgb(0 0 0 / 35%) 0px 5px 15px;
     width: auto;
-    min-width: 215px;
+    min-width: 22% !important;
     min-height: 110px;
     align-content: center;
     margin-top: 10px;
@@ -733,6 +734,7 @@
     line-height: 35px;
     padding: 5px;
     text-align: center;
+    color: white;
   }
   
   @media (max-width: 768px) {
@@ -761,7 +763,8 @@
   }
   
   .first-box {
-    /* padding-right: unset; */
+    padding-right: unset;
+    margin-bottom: 20px;
   }
   
   @media (max-width: 768px) {
@@ -769,11 +772,16 @@
       padding-right: 10px;
       margin-bottom: 7px;
     }
+    
+    #mine {
+      display: flex;
+      flex-direction: column;
+    }
   }
   
-  #mine {
+  /* #mine {
     margin-bottom: 100px;
-  }
+  } */
   
   .mine-btn {
     width: auto;
@@ -1162,10 +1170,11 @@
   
   .mine-card {
     /* color: white; */
-    color: black;
+    color: white;
+    background: #000000b8;
     /* backdrop-filter: blur(8px);
-    border: 2px solid #000000;
-    border-radius: 18px; */
+    border: 2px solid #000000; */
+    border-radius: 0.5rem;
     box-shadow: rgb(0 0 0 / 35%) 0px 5px 15px;
     height: 100%;
     font-size: 16px;
@@ -1209,7 +1218,7 @@
     border-radius: 7px;
     color: white;
     background: transparent;
-    border: 2px solid #ffea00;
+    border: 2px solid #ffbb00;
   }
   
   .form-control:focus {
@@ -1713,13 +1722,16 @@
     border: none;
     outline: none;
     color: rgb(0, 0, 0);
-    background: #ffea00;
+    background: #ffbb00;
     cursor: pointer;
     position: relative;
     z-index: 0;
-    border-radius: 10px;
+    border-radius: 30px;
     font-size: 15px;
     font-weight: 1000;
+  }
+  .glow-on-hover:hover {
+    background: #f4db95;
   }
   /*
   .glow-on-hover:before {
@@ -1882,4 +1894,31 @@
   
   .accordion-button:not(.collapsed) {
     color: white;
+  }
+
+  .subtitle2 {
+    color: #ffbb00;
+  }
+
+  .btn-container {
+    margin-top: 27px;
+  }
+
+  .adsbox {
+    /* color: white; */
+    color: #ffbb00;
+    background: #000000b8;
+    border-radius: 0.5rem;
+    font-size: 16px;
+    margin: 10px 10px;
+    width: 20%;
+    text-align: center;
+    padding-top: 50px;
+  }
+
+  @media (max-width: 768px) {
+    .adsbox {
+      width: 96%;
+      min-height: 100px;
+    }
   }

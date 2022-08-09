@@ -15,8 +15,8 @@ const Item = styled('img')(({ theme }) => ({
 export default function BackBrand() {
   return (
     <>
-      <Item src={PolyCoinsImg} alt="" style={{ left: '100px', top: '300px'}} />
-      <Item src={PolyFrontImg} alt="" style={{ right: '100px', bottom: '0px' }} />
+      {/* <Item src={PolyCoinsImg} alt="" style={{ left: '100px', top: '300px'}} />
+      <Item src={PolyFrontImg} alt="" style={{ right: '100px', bottom: '0px' }} /> */}
     </>
   );
 }

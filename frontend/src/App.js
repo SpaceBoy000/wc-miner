@@ -12,7 +12,7 @@ function App() {
   return (
     <BrowserRouter>
       <Suspense fallback="loading">
-        <Box>
+        <Box sx={{backgroundColor:"#495057", minHeight:"100vh"}}>
           <Layout>
             <Routes>
               <Route exact path="/" element={ <Home /> }/>
