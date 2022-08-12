@@ -66,9 +66,10 @@ export default function BakeCard() {
     useContractContext();
   const { address, chainId } = useAuthContext();
   const [contractBNB, setContractBNB] = useState(0);
+const [estimatedMinerRate, setEstimatedMinerRate] = useState(0);
   const [walletBalance, setWalletBalance] = useState({
     bnb: 0,
-    beans: 0,
+    miners: 0,
     rewards: 0,
   });
   const [bakeBNB, setBakeBNB] = useState(0);
@@ -80,8 +81,13 @@ export default function BakeCard() {
   const EGGS_TO_HIRE_1MINERS = 1440000; // 3.3%, 864000: 10%;
 
   const [lasthatch, setLasthatch] = useState(0);
+  const [lastSell, setLastSell] = useState(0);
   const [compoundTimes, setCompoundTimes] = useState(0);
-  const [yourLevel, setYourLevel] = useState(0);
+  const [level, setLevel] = useState(0);
+  const [initialDeposit, setInitialDeposit] = useState(0);
+  const [totalDeposit, setTotalDeposit] = useState(0);
+  const [totalClaimed, setTotalClaimed] = useState(0);
+  const [totalReferralRewards, setTotalReferralRewards] = useState(0);
   const [countdown, setCountdown] = useState({
     alive: true,
     days: 0,
@@ -123,12 +129,37 @@ export default function BakeCard() {
         seconds
     };
   }
-
+  let bonusStr = [
+    {
+      level: 0,
+      period: 604800,
+      percent: '3%',
+    },
+    {
+      level: 1,
+      period: 1209600,
+      percent: '5%',
+    },
+    {
+      level: 2,
+      period: 1814400,
+      percent: '7%',
+    },
+    {
+      level: 3,
+      period: 2419200,
+      percent: '9%',
+    }
+  ];
   useEffect(() => {
     const intervalID = setInterval(() => {
       try {
-        const last = Number(lasthatch);
-        const data = getCountdown(last + 24 * 3600 + 110); //24 * 3600
+        const last = Number(lastSell);
+        console.log("Level: ", level);
+        console.log("bonusStr: ", bonusStr[level].period);
+        const data = getCountdown(last + bonusStr[level].period + 110); //24 * 3600
+        console.log("data: ", data);
+
         setCountdown({
           alive: data.total > 0,
           days: data.days,
@@ -144,27 +175,7 @@ export default function BakeCard() {
     return () => {
       clearInterval(intervalID)
     }
-  }, [lasthatch])
-
-  useEffect(() => {
-    const intervalID = setInterval(() => {
-      try {
-        const data = getCountdown(Number(roundStartTime) + Number(roundIntervalLottery));
-        setCountdownLottery({
-          alive: data.total > 0,
-          days: data.days,
-          hours: data.hours,
-          minutes: data.minutes,
-          seconds: data.seconds,
-        });
-      } catch (err) {
-        console.log(err);
-      }
-    }, 1000);
-    return () => {
-      clearInterval(intervalID)
-    }
-  }, [roundStartTime, roundIntervalLottery])
+  }, [lastSell])
 
   const fetchContractBNBBalance = async () => {
     if (!web3 || wrongNetwork) {
@@ -173,6 +184,7 @@ export default function BakeCard() {
     }
     await contract.methods.getBalance().call().then((amount) => {
       setContractBNB(fromWei(amount));
+      console.log("fetchContractBNBBalance: ", amount);
     });
   };
 
@@ -180,133 +192,86 @@ export default function BakeCard() {
     if (!web3 || wrongNetwork || !address) {
       setWalletBalance({
         bnb: 0,
-        beans: 0,
+        miners: 0,
         rewards: 0,
       });
       setCompoundTimes(0);
-      setYourLevel(0);
+      setInitialDeposit(0);
+      setTotalDeposit(0);
+      setTotalClaimed(0);
+      setTotalReferralRewards(0);
+      setEstimatedMinerRate(0);
       return;
     }
-
+    
     try {
-      console.log("address: ", address);
-      const aaaa = await contract.methods
-
-      const [bnbAmount, rewardsAmount, userInfo] = await Promise.all([
+      const [bnbAmount, rewardsAmount, miners, userInfo, estimatedRate] = await Promise.all([
         getBnbBalance(address),
         contract.methods
-          .getAvailableEarnings(address)
+          .getAvailableEarnings()
           .call({from: address})
           .catch((err) => {
             console.error("getAvailableEarnings error: ", err);
             return 0;
           }),
         contract.methods
-          .users(address)
-          .call()
+          .getMyMiners()
+          .call({from: address})
           .catch((err) => {
             console.error("userInfo error", err);
             return 0;
-          })
+          }),
+        contract.methods
+            .getUserInfo(address)
+            .call()
+            .catch((err) => {
+              console.error("userInfo error", err);
+              return 0;
+            }),
+        contract.methods
+            .calculateEggBuySimple(toWei('1'))
+            .call()
+            .catch((err) => {
+              console.error("userInfo error", err);
+              return 0;
+            })
         ]);
-
-        console.log("rewardsAmount: ", rewardsAmount);
-      // const tvlAmount = await contract.methods
-      //   .calculateEggSell(beansAmount * EGGS_TO_HIRE_1MINERS)
-      //   .call()
-      //   .catch((err) => {
-      //     console.error("calc_egg_sell", err);
-      //     return 0;
-      //   });
 
       setWalletBalance({
         bnb: fromWei(`${bnbAmount}`),
-        beans: userInfo.miners,
+        miners: miners,
         rewards: fromWei(`${rewardsAmount}`),
       });
-      setLasthatch(userInfo.lastHatch);
-      setCompoundTimes(userInfo.dailyCompoundBonus);
-      setYourLevel(userInfo.level);
+      console.log("UserInfo: ", userInfo);
+      console.log("rewardsAmount: ", rewardsAmount);
+      const level = (userInfo._lastSell == 0) ? 0 : Math.min(Math.floor((Date.now() / 1000 - userInfo._lastSell) / 604800), 3);
+      console.log("level: ", level);
+      setCompoundTimes(userInfo._comopundCount);
+      setInitialDeposit(fromWei(`${userInfo._initialDeposit}`));
+      setTotalDeposit(fromWei(`${userInfo._userDeposit}`));
+      setTotalClaimed(fromWei(`${userInfo._claimedEggs}`));
+      setTotalReferralRewards(fromWei(`${userInfo._referralEggRewards}`));
+      setEstimatedMinerRate(estimatedRate);
+      setLasthatch(userInfo._lastHatch);
+      setLastSell(userInfo._lastSell);
+      setLevel(level);
     } catch (err) {
       console.error(err);
       setWalletBalance({
         bnb: 0,
-        beans: 0,
+        miners: 0,
         rewards: 0,
       });
-      // setLasthatch(0);
+      setLasthatch(0);
+      setLastSell(0);
       setCompoundTimes(0);
-      setYourLevel(0);
+      setInitialDeposit(0);
+      setTotalDeposit(0);
+      setTotalClaimed(0);
+      setTotalReferralRewards(0);
+      setEstimatedMinerRate(0);
     }
   };
-
-  const fetchLottoryInfo = async () => {
-    if (!web3 || wrongNetwork || !address) {
-      setTicketCount(0);
-      setLastTicketCount(0);
-      setTotalTicketCount(0);
-      setRoundStartTime(0);
-      setRoundIntervalLottery(0);
-      // setRoundStarted(false);
-      setLotteryWinner(zeroAddrss);
-      
-      return;
-    }
-    const [roundStarted, roundID] = await Promise.all ([
-      contract.methods.lotteryStarted()
-                        .call()
-                        .catch((err) => {
-                          console.error("lottory error:", err);
-                        }),
-      contract.methods.LOTTERY_ROUND()
-                        .call()
-                        .catch((err) => {
-                          console.error("lottory error:", err);
-                        })
-    ]);;
-    const [roundStartTime, roundInterval, lastLotteryInfo, currentLotteryInfo, ticketCnt, lastTicketCnt] = await Promise.all([
-      contract.methods.LOTTERY_START_TIME()
-                        .call()
-                        .catch((err) => {
-                          console.error("lottory error: ", err);
-                        }),
-      contract.methods.LOTTERY_INTERVAL()
-                        .call()
-                        .catch((err) => {
-                          console.error("lottory LOTTERY_INTERVAL error: ", err);
-                        }),
-      contract.methods.lotteryInfo(roundID-1)
-                        .call()
-                        .catch((err) => {
-                          console.error("lottory error: ", err);
-                        }),
-      contract.methods.lotteryInfo(roundID)
-                        .call()
-                        .catch((err) => {
-                          console.error("lottory error: ", err);
-                        }),
-      contract.methods.getUserTicketInfo(address, roundID)
-                        .call()
-                        .catch((err) => {
-                          console.error("lottory error: ", err);
-                        }),
-      contract.methods.getUserTicketInfo(address, roundID-1)
-                        .call()
-                        .catch((err) => {
-                          console.error("lottory error: ", err);
-                        }),
-    ]);
-    setLotteryWinner(lastLotteryInfo.winnerAccount);
-
-    console.log("totalTicketCnt: ", currentLotteryInfo.totalTicketCnt);
-    setTicketCount(ticketCnt);
-    setLastTicketCount(lastTicketCnt);
-    setTotalTicketCount(currentLotteryInfo.totalTicketCnt);
-    setRoundStartTime(roundStartTime);
-    setRoundIntervalLottery(roundInterval);
-    setRoundStarted(roundStarted);
-    console.log("roundStarted: ", roundInterval);
-  }
 
   useEffect(() => {
     fetchContractBNBBalance();
@@ -314,12 +279,7 @@ export default function BakeCard() {
 
   useEffect(() => {
     fetchWalletBalance();
-    fetchLottoryInfo();
   }, [address, web3, chainId]);
-
-  const onUpdateBakeBNB = (value) => {
-    setBakeBNB(value);
-  };
 
   const getRef = () => {
     const ref = Web3.utils.isAddress(query.get("ref"))
@@ -327,10 +287,6 @@ export default function BakeCard() {
       : "0xBA2Dd8dB1728D8DE3B3b05cc1a5677F005f34Ba3"; // "0x0000000000000000000000000000000000000000";
     return ref;
   };
-  // const encode = atob('0xBA2Dd8dB1728D8DE3B3b05cc1a5677F005f34Ba');
-  // const decode = btoa(encode);
-
-  // console.log("Base64: ", getRef(), "=> ", encode.toString(), " => ", decode.toString());
 
   const bake = async () => {
     setLoading(true);
@@ -338,7 +294,7 @@ export default function BakeCard() {
     const ref = getRef();
 
     try {
-      await contract.methods.BuySnows(ref).send({
+      await contract.methods.BuyWolfMiners(ref).send({
         from: address,
         value: toWei(`${bakeBNB}`),
       });
@@ -347,11 +303,20 @@ export default function BakeCard() {
     }
     fetchWalletBalance();
     fetchContractBNBBalance();
-    fetchLottoryInfo();
+    // fetchLottoryInfo();
     setLoading(false);
   };
 
   const reBake = async () => {
+    // if (countdown.alive) {
+    //   Toast.fire({
+    //     icon: 'error',
+    //     title: "You should wait until the countdown timer is done."
+    //   });
+    //   setLoading(false);
+    //   return;
+    // }
+
     setLoading(true);
 
     const ref = getRef();
@@ -370,14 +335,14 @@ export default function BakeCard() {
   const eatBeans = async () => {
     setLoading(true);
 
-    if (countdown.alive) {
-      Toast.fire({
-        icon: 'error',
-        title: "You should wait until the countdown timer is done."
-      });
-      setLoading(false);
-      return;
-    }
+    // if (countdown.alive) {
+    //   Toast.fire({
+    //     icon: 'error',
+    //     title: "You should wait until the countdown timer is done."
+    //   });
+    //   setLoading(false);
+    //   return;
+    // }
 
     try {
       await contract.methods.ClaimRewards().send({
@@ -404,7 +369,7 @@ export default function BakeCard() {
                     <i class="bi-bank"></i>
                     <span> Initial Deposit</span>
                   </div>
-                  <strong id="initial-deposit" class="number">-</strong>
+                  <strong id="initial-deposit" class="number">{ initialDeposit }</strong>
                   <div>
                     <strong class="busd">BNB</strong>
                   </div>
@@ -414,7 +379,7 @@ export default function BakeCard() {
                     <i class="bi-bank"></i>
                      <span> Total Deposit</span>
                   </div>
-                  <strong id="total-deposit" class="number">-</strong>
+                  <strong id="total-deposit" class="number">{ totalDeposit }</strong>
                   <div>
                     <strong class="busd">BNB</strong>
                   </div>
@@ -425,7 +390,7 @@ export default function BakeCard() {
                      <span> Total Claimed</span>
                   </div>
                   <div>
-                    <strong id="total-withdrawn" class="number">-</strong>
+                    <strong id="total-withdrawn" class="number">{ totalClaimed }</strong>
                   </div>
                   <div>
                     <strong class="busd">BNB</strong>
@@ -437,7 +402,7 @@ export default function BakeCard() {
                      <span> Referral Rewards </span>
                   </div>
                   <div>
-                    <strong id="ref-rewards-busd" class="number">-</strong>
+                    <strong id="ref-rewards-busd" class="number">{ totalReferralRewards }</strong>
                   </div>
                   <div>
                     <strong class="busd">BNB</strong>
@@ -455,7 +420,7 @@ export default function BakeCard() {
                             Hiring Example
                           </strong>
                           <div>
-                            <div>1<span class="busd">BNB</span> = <span id="example-miners"> 1234 </span> Wolf Miners</div>
+                            <div>1<span class="busd">BNB</span> = <span id="example-miners">{ estimatedMinerRate }</span> Wolf Miners</div>
                             <div>
                               <i class="ri-coins-line ri-1x"></i>
                               <span className="subtitle2"> Daily: </span>
@@ -469,7 +434,7 @@ export default function BakeCard() {
                           <i class="bi-wallet2"></i>
                           <strong className="subtitle2"> Wallet</strong>
                           <div>
-                            <span id="user-balance">10</span>
+                            <span id="user-balance">{ walletBalance.bnb }</span>
                             <span class="busd">BNB</span>
                           </div>
                         </div>
@@ -478,7 +443,7 @@ export default function BakeCard() {
                     {/* <div class="timer">
                       <i class="bi-hourglass-split"></i>
                       <span> Compound will be activated in: </span>
-                      <span id="claim-timer">00 : 00 : 00</span>
+                      <span id="claim-timer">{ countdown.alive ? countdown.hours + ':' + countdown.minutes + ':' + countdown.seconds : '00 : 00 : 00'}</span>
                     </div> */}
                     {/* <div class="timer" style={{padding:"14px", marginBottom:"20px"}}>
                       <i class="bi bi-clock"></i>
@@ -505,9 +470,9 @@ export default function BakeCard() {
                         </span>	
                         <span class="usd">
                         MAX:<span class="busd" id="max-deposit"> Unlimited </span>)</span>
-                        <input class="form-control" id="busd-spend" name="buy-miners" /*onChange={handleBUSD}*/ step="1" type="number" value={0}/>
+                        <input class="form-control" id="busd-spend" name="buy-miners" onChange={(e) => {setBakeBNB(e.target.value)}} step="0.1" type="number" value={bakeBNB}/>
                       </strong>
-                      <button class="btn glow-on-hover" id="buy-eggs-btn" /*onClick={ hireFarmers }*/ role="button" style={{marginTop:"5px"}}>
+                      <button class="btn glow-on-hover" id="buy-eggs-btn" onClick={ bake } role="button" style={{marginTop:"5px"}}>
                         <span>Hire </span>
                         {/* <span id="eggs-to-buy">0</span> */}
                         <span> Wolf Miners</span>
@@ -519,10 +484,12 @@ export default function BakeCard() {
                   <div class="mine-card">
                     <div class="miners-info" style={{marginBottom:"unset"}}>
                       <div style={{display:"flex", justifyContent:"space-between"}}>
-                        {/* <i class="bi-minecart"></i> */}
-                        {/* <span id="your-miners"> - </span> */}
+                        <span className="subtitle2">Contract Balance</span>
+                        <span>{ contractBNB } BNB</span>
+                      </div>
+                      <div style={{display:"flex", justifyContent:"space-between"}}>
                         <span className="subtitle2">Your Wolf Miners</span>
-                        <span> 10 Wolf Miners</span>
+                        <span>{ walletBalance.miners } Wolf Miners</span>
                       </div>
                       <div>
                         <i class="bi-arrow-down-short" style={{fontSize:"23px"}}></i>
@@ -531,15 +498,18 @@ export default function BakeCard() {
                         {/* <i class="ri-coins-line ri-1x"></i> */}
                         {/* <strong id="mined"> -</strong> */}
                         <span className="subtitle2">Your Rewards</span>
-                        <span> 10 BNB</span>
+                        <span>{ walletBalance.rewards } BNB</span>
                       </div>
-                      <div style={{display:"flex", justifyContent:"space-between"}}>
+                      {/* <div style={{display:"flex", justifyContent:"space-between"}}>
                         <span className="subtitle2">Estimated daily yield</span>
                         <span>0.33 BNB</span>
-                      </div>
+                      </div> */}
                       <div style={{display:"flex", justifyContent:"space-between"}}>
-                        <span className="subtitle2"> Compound Count </span>
-                        <span> 4 </span>
+                        {/* <span className="subtitle2"> Compound Count </span>
+                        <span>{ compoundTimes }</span> */}
+
+                        <span className="subtitle2"> {bonusStr[level].percent } extra bonus is activated in: </span>
+                        <span id="compound-timer">{ countdown.alive ? countdown.days + ':' + countdown.hours + ':' + countdown.minutes + ':' + countdown.seconds : '00 : 00 : 00 : 00'}</span>
                       </div>
                     </div>
                     <div>
@@ -552,7 +522,7 @@ export default function BakeCard() {
                         <div>
                           <button class="btn glow-on-hover" id="withdraw" onClick={ eatBeans } role="button">
                             Claim Rewards
-                            <span class="cooldown" id="cooldown-timer"> in 00 : 00 : 00 </span>
+                            {/* <span class="cooldown" id="cooldown-timer"> in { countdown.alive ? countdown.hours + ':' + countdown.minutes + ':' + countdown.seconds : '00 : 00 : 00' }</span> */}
                             {/* <span class="tax" id="withdraw-tax">( 60% tax )</span> */}
                           </button>
                         </div>
