@@ -47,8 +47,11 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [snackbar, setSnackbar] = useState(null);
   const [chainId, setChainId] = useState(null);
+  const [provider, setProvider] = useState(null);
 
   const subscribeProvider = (provider) => {
+    setProvider(provider);
+
     provider.on("disconnect", (error) => {
       console.log(error);
       setChainId(null);
@@ -123,7 +126,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ address, loading, connect, disconnect, chainId, setSnackbar }}
+      value={{ address, loading, connect, disconnect, chainId, setSnackbar, provider }}
     >
       {children}
       {snackbar && (

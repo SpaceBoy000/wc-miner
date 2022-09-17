@@ -11,7 +11,6 @@ import { Toast } from "../../utils"
 import { config } from "../../config";
 
 const CardWrapper = styled("div")(({ theme }) => ({
-  margin: "0 auto 24px auto",
   padding: "29px",
 }));
 
@@ -136,10 +135,10 @@ export default function Description({ address }) {
                       </CustomCardHeader>
                       <Typography variant="body2" sx={{ mt: 2 }}>
                         We added a feature that will incentivize the community for utilizing the compound feature!<br/><br/>
-                          •	1st week 0 withdraws and compound daily 3% bonus added to TVL<br/>
-                          •	2nd week 0 withdraws and compound daily 5% bonus added to TVL<br/>
-                          •	3rd week 0 withdraws and compound daily 7% bonus added to TVL<br/>
-                          •	4th week 0 withdraws and compound daily 9% bonus added to TVL<br/><br/>
+                          •	1st week 0 withdraws and compound daily 3% bonus added to total deposit amount<br/>
+                          •	2nd week 0 withdraws and compound daily 5% bonus added to total deposit amount<br/>
+                          •	3rd week 0 withdraws and compound daily 7% bonus added to total deposit amount<br/>
+                          •	4th week 0 withdraws and compound daily 9% bonus added to total deposit amount<br/><br/>
                         Once you withdraw rewards restart back to zero! 
                         </Typography>
                       </CardWrapper2>

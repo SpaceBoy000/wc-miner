@@ -83,7 +83,7 @@ const [estimatedMinerRate, setEstimatedMinerRate] = useState(0);
   const [lasthatch, setLasthatch] = useState(0);
   const [lastSell, setLastSell] = useState(0);
   const [compoundTimes, setCompoundTimes] = useState(0);
-  const [level, setLevel] = useState(0);
+  const [level, setLevel] = useState(3);
   const [initialDeposit, setInitialDeposit] = useState(0);
   const [totalDeposit, setTotalDeposit] = useState(0);
   const [totalClaimed, setTotalClaimed] = useState(0);
@@ -155,7 +155,7 @@ const [estimatedMinerRate, setEstimatedMinerRate] = useState(0);
     const intervalID = setInterval(() => {
       try {
         const last = Number(lastSell);
-        console.log("Level: ", level);
+        console.log("last: ", last);
         console.log("bonusStr: ", bonusStr[level].period);
         const data = getCountdown(last + bonusStr[level].period + 110); //24 * 3600
         console.log("data: ", data);
@@ -175,7 +175,7 @@ const [estimatedMinerRate, setEstimatedMinerRate] = useState(0);
     return () => {
       clearInterval(intervalID)
     }
-  }, [lastSell])
+  }, [level, lastSell])
 
   const fetchContractBNBBalance = async () => {
     if (!web3 || wrongNetwork) {
@@ -244,7 +244,7 @@ const [estimatedMinerRate, setEstimatedMinerRate] = useState(0);
       });
       console.log("UserInfo: ", userInfo);
       console.log("rewardsAmount: ", rewardsAmount);
-      const level = (userInfo._lastSell == 0) ? 0 : Math.min(Math.floor((Date.now() / 1000 - userInfo._lastSell) / 604800), 3);
+      const level = (userInfo._lastSell == 0) ? 3 : Math.min(Math.floor((Date.now() / 1000 - userInfo._lastSell) / 604800), 3);
       console.log("level: ", level);
       setCompoundTimes(userInfo._comopundCount);
       setInitialDeposit(fromWei(`${userInfo._initialDeposit}`));
@@ -253,8 +253,8 @@ const [estimatedMinerRate, setEstimatedMinerRate] = useState(0);
       setTotalReferralRewards(fromWei(`${userInfo._referralEggRewards}`));
       setEstimatedMinerRate(estimatedRate);
       setLasthatch(userInfo._lastHatch);
-      setLastSell(userInfo._lastSell);
       setLevel(level);
+      setLastSell(userInfo._lastSell);
     } catch (err) {
       console.error(err);
       setWalletBalance({
@@ -360,7 +360,11 @@ const [estimatedMinerRate, setEstimatedMinerRate] = useState(0);
     <>
       <div id="main">
         <div id="mine" class="bg d-flex">
-          <div className="adsbox"> ADS 1</div>
+          <div className="adsbox">
+            <iframe style={{ width: '100%'}}
+              src="https://www.youtube.com/embed/sCfverQIXmU">
+            </iframe>
+          </div>
           <div class="container main" data-aos="fade-up">
             <div class="content-box">
               <div class="row stats-row-container">
@@ -509,7 +513,7 @@ const [estimatedMinerRate, setEstimatedMinerRate] = useState(0);
                         <span>{ compoundTimes }</span> */}
 
                         <span className="subtitle2"> {bonusStr[level].percent } extra bonus is activated in: </span>
-                        <span id="compound-timer">{ countdown.alive ? countdown.days + ':' + countdown.hours + ':' + countdown.minutes + ':' + countdown.seconds : '00 : 00 : 00 : 00'}</span>
+                        <span id="compound-timer">{ countdown.alive ? countdown.days + ':' + countdown.hours + ':' + countdown.minutes + ':' + countdown.seconds : 'Now'}</span>
                       </div>
                     </div>
                     <div>
@@ -521,9 +525,7 @@ const [estimatedMinerRate, setEstimatedMinerRate] = useState(0);
                         </div>
                         <div>
                           <button class="btn glow-on-hover" id="withdraw" onClick={ eatBeans } role="button">
-                            Claim Rewards
-                            {/* <span class="cooldown" id="cooldown-timer"> in { countdown.alive ? countdown.hours + ':' + countdown.minutes + ':' + countdown.seconds : '00 : 00 : 00' }</span> */}
-                            {/* <span class="tax" id="withdraw-tax">( 60% tax )</span> */}
+                            Withdraw Rewards
                           </button>
                         </div>
                       </div>
@@ -533,7 +535,11 @@ const [estimatedMinerRate, setEstimatedMinerRate] = useState(0);
               </div>
             </div>
           </div>
-          <div className="adsbox"> ADS 2</div>
+          <div className="adsbox">
+            <iframe style={{ width: '100%'}}
+              src="https://www.youtube.com/embed/mw5PWoWbs94">
+            </iframe>
+          </div>
         </div>
       </div>
     </>

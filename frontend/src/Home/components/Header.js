@@ -49,7 +49,9 @@ const Item = styled('div')(({ theme }) => ({
   color: theme.palette.text.secondary,
   // border: "solid white 2px",
   borderRadius: "1.25rem",
-  background: "#000000b8"
+  background: "#000000b8",
+  minWidth: '150px',
+  alignSelf: 'center',
 }));
 
 const ItemConnect = styled('div')(({ theme }) => ({
@@ -80,6 +82,20 @@ export default function Header() {
                 <div onClick= {() => {
                   setMobile(true)
                 }}>
+                  <a href="https://www.encryptosecurity.com/AuditRecord?project=64" target="_blank"
+                    className="swap_btn"
+                    style={{
+                      color: 'white',
+                      textDecoration: 'none',
+                      fontWeight:"bolder"
+                    }}
+                  >
+                    Audit
+                  </a>
+                </div>
+                <div onClick= {() => {
+                  setMobile(true)
+                }}>
                   <a href={ config.scanLink } target="_blank"
                     className="swap_btn"
                     style={{
@@ -94,7 +110,7 @@ export default function Header() {
                 <div onClick={() => {
                   setMobile(true)
                 }}>
-                  <a href="https://twitter.com/WolfOfCrypto885" target="_blank"
+                  <a href="https://lottery.wcminer.finance/whitepaper.pdf" target="_blank"
                     className="stable_btn"
                     style={{
                       color: 'white',
@@ -102,14 +118,14 @@ export default function Header() {
                       fontWeight:"bolder"
                     }}
                   >
-                    <span> Twitter </span>
+                    <span> Whitepaper </span>
                     {/* <TwitterIcon/> */}
                   </a>
                 </div>
                 <div onClick={() => {
                   setMobile(true)
                 }}>
-                  <a href="https://discord.gg/bBwPdV6q8U" target="__blank"
+                  <a href="https://lottery.wcminer.finance/" target="__blank"
                     className="bridge_btn"
                     style={{
                       color: 'white',
@@ -117,24 +133,9 @@ export default function Header() {
                       fontWeight:"bolder"
                     }}
                   >
-                    Discord
+                    Lottery
                   </a>
                 </div>
-                <div onClick={() => {
-                  setMobile(true)
-                }}>
-                  <a href="https://t.me/+vyNxJgY6zwAzNmY8" target="__blank"
-                    className="liquidity_btn"
-                    style={{
-                      color: 'white',
-                      textDecoration: 'none',
-                      fontWeight:"bolder"
-                    }}
-                  >
-                    Telegram
-                  </a>
-                </div>
-
               </div>
               <div style={{flex:1}}></div>
               <div
@@ -165,6 +166,18 @@ export default function Header() {
         </Grid>
         <Grid className="header_menu" item xs={12} sm={6.6}>
           <Item>
+            <a href="https://www.encryptosecurity.com/AuditRecord?project=64" target="_blank"
+              style={{
+                textDecoration: 'none',
+                fontWeight: "bolder",
+                color:"#ffbb00"
+              }}
+            >
+                <span>Audit </span>
+                {/* <TwitterIcon/> */}
+            </a>
+          </Item>
+          <Item>
             <a href={ config.scanLink } target="_blank"
               style={{
                 textDecoration: 'none',
@@ -173,43 +186,31 @@ export default function Header() {
               }}
             >
                 <span>Contract </span>
-                <SiBinance/>
+                {/* <SiBinance/> */}
             </a>
           </Item>
           <Item>
-            <a href="https://twitter.com/WolfOfCrypto885" target="_blank"
+            <a href="/whitepaper.pdf" target="_blank"
               style={{
                 textDecoration: 'none',
                 fontWeight: "bolder",
                 color:"#ffbb00"
               }}
             >
-                <span>Twitter </span>
-                <TwitterIcon/>
+                <span>Whitepaper</span>
+                {/* <FaDiscord/> */}
             </a>
           </Item>
-          <Item>
-            <a href="https://discord.gg/bBwPdV6q8U" target="_blank"
+          <Item style={{border: "solid #ffbb00 4px"}}>
+            <a href="https://lottery.wcminer.com/" target="__blank"
               style={{
                 textDecoration: 'none',
                 fontWeight: "bolder",
                 color:"#ffbb00"
               }}
             >
-                <span>Discord </span>
-                <FaDiscord/>
-            </a>
-          </Item>
-          <Item>
-            <a href="https://t.me/+vyNxJgY6zwAzNmY8" target="__blank"
-              style={{
-                textDecoration: 'none',
-                fontWeight: "bolder",
-                color:"#ffbb00"
-              }}
-            >
-              <span>Telegram </span>
-              <TelegramIcon/>
+              <span>Lottery </span>
+              {/* <TelegramIcon/> */}
             </a>
           </Item>
         </Grid>

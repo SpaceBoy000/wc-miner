@@ -5,7 +5,7 @@ import BakeCard from "./components/BakeCard";
 import NutritionFacts from "./components/NutritionFacts";
 import ReferralLink from "./components/ReferralLink";
 import { useAuthContext } from "../providers/AuthProvider";
-import Footer from "./components/Footer";
+import Footer from "./components/Footer/Footer";
 import DailyProfit from "./components/DailyProfit";
 import Social from "./components/Social";
 import Description from "./components/Description";
@@ -33,8 +33,8 @@ export default function Home() {
       {/* <NutritionFacts /> */}
       {/* <ReferralLink address={address} /> */}
       {/* <Social /> */}
-      {/* <Footer /> */}
       <Description address={address}/>
+      <Footer />
     </Wrapper>
   );
 }

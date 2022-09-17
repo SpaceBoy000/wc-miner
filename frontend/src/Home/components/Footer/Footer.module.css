@@ -1,0 +1,61 @@
+.footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #141618;
+  color: white;
+  padding: 60px 15px;
+}
+.footerItem {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 28px;
+  color: var(--white-color);
+  text-decoration: none;
+  padding: 0 18px;
+}
+.footerItem:hover {
+  color: var(--white-color);
+}
+.copyRight {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 28px;
+  color: var(--white-color);
+  padding-top: 25px;
+}
+@media only screen and (max-width: 1600px) {
+  .footerItem,
+  .copyRight {
+    font-size: 20px;
+  }
+}
+@media only screen and (max-width: 767px) {
+  .footerItem,
+  .copyRight {
+    font-size: 17px;
+  }
+}
+@media only screen and (max-width: 520px) {
+  .footerItem {
+    font-size: 15px;
+    padding: 0 8px;
+  }
+  .copyRight {
+    font-size: 15px;
+  }
+}
+@media only screen and (max-width: 400px) {
+  .footerItem {
+    font-size: 13px;
+    padding: 0 5px;
+  }
+  .copyRight {
+    font-size: 14px;
+  }
+}

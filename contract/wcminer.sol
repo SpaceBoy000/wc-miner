@@ -1,7 +1,3 @@
-/**
- *Submitted for verification at BscScan.com on 2022-08-11
-*/
-
 // SPDX-License-Identifier: MIT
 
 pragma solidity ^0.8.7; // solhint-disable-line
