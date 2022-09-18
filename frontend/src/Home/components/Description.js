@@ -88,6 +88,22 @@ export default function Description({ address }) {
             textAlign: 'left',
           }}
         >
+          <Grid item xs={12} sm={12} md={12} sx={{ display: 'flex', justifyContent: 'center' }}>
+            <CardWrapper3>
+              <CustomCardHeader variant="body4">
+                {`Self Sustainable`}
+              </CustomCardHeader>
+              <Typography variant="body2" sx={{ mt: 2, paddingBottom: 2 }}>
+                WC Miner is proud to present a software that will mine altcoin on low- and high-end PC’s and VPS’s.
+                VPS is a Virtual Private Server, they are inexpensive and a better route to go for the mining software.
+                How it works is once you download the Zip File, extract the software click run and it will automatically run and begin mining altcoin.
+                After every block mined there will be a payout once the server receives the payout it will automatically be converted to BNB and deposited into the contract.
+                Depending on the hash rate, we project between 50 – 75 users will bring in 200 - 400 USD a day as a new line of revenue making the contract self-sustainable.
+                Of course we welcome new investors daily but this will only bring up our daily ROI.
+                This is the first step to being a self-sustainable BNB miner! We will list the link to the software soon!
+              </Typography>
+            </CardWrapper3>
+          </Grid>
           <Grid item xs={12} sm={12} md={12}>
             <Grid
               container
@@ -114,17 +130,6 @@ export default function Description({ address }) {
                         Your value in the contract can rise and fall based on the combined actions of the community. 
                         But, unlike your average coins and tokens, WC Miner allows you to stabilize and increase your TVL by taking long-term advantage of its compound feature. <br/><br/>
                       </Typography>
-                      {/* <CustomCardHeader variant="body4">
-                        {`Rewards:`}
-                      </CustomCardHeader>
-                      <Typography variant="body2" sx={{ mt: 2 }}>
-                        We added a feature that will incentivize the community for utilizing the compound feature!<br/><br/>
-                          •	1st week 0 withdraws and compound daily 3% bonus added to TVL<br/>
-                          •	2nd week 0 withdraws and compound daily 5% bonus added to TVL<br/>
-                          •	3rd week 0 withdraws and compound daily 7% bonus added to TVL<br/>
-                          •	4th week 0 withdraws and compound daily 9% bonus added to TVL<br/><br/>
-                        Once you withdraw rewards restart back to zero! 
-                      </Typography> */}
                     </CardWrapper2>
                     
                   </Grid>
@@ -142,23 +147,7 @@ export default function Description({ address }) {
                         Once you withdraw rewards restart back to zero! 
                         </Typography>
                       </CardWrapper2>
-                    </Grid>
-                  {/* <Grid item xs={12} sm={12} md={12} sx={{ display: 'flex', justifyContent: 'end' }}>
-                    <CardWrapper2>
-                      <CustomCardHeader variant="body4">
-                        {`Verified Public Contract`}
-                      </CustomCardHeader>
-                      <Typography variant="body2" sx={{ mt: 2 }}>
-                        <span>WC Miner contract is visible to
-                        anyone and it had been verified. Check
-                        it on </span>
-                        <a href={ config.scanLink } target="_blank" style={{color: 'white'}}>
-                          BNB Scan
-                        </a>
-                        .
-                      </Typography>
-                    </CardWrapper2>
-                  </Grid> */}
+                  </Grid>
                 </Grid>
               </Grid>
 

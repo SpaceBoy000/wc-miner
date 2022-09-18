@@ -66,7 +66,7 @@ export default function BakeCard() {
     useContractContext();
   const { address, chainId } = useAuthContext();
   const [contractBNB, setContractBNB] = useState(0);
-const [estimatedMinerRate, setEstimatedMinerRate] = useState(0);
+  const [estimatedMinerRate, setEstimatedMinerRate] = useState(0);
   const [walletBalance, setWalletBalance] = useState({
     bnb: 0,
     miners: 0,
@@ -242,8 +242,7 @@ const [estimatedMinerRate, setEstimatedMinerRate] = useState(0);
         miners: miners,
         rewards: fromWei(`${rewardsAmount}`),
       });
-      console.log("UserInfo: ", userInfo);
-      console.log("rewardsAmount: ", rewardsAmount);
+      const EGGS_TO_HATCH_1MINERS = 2592000;
       const level = (userInfo._lastSell == 0) ? 3 : Math.min(Math.floor((Date.now() / 1000 - userInfo._lastSell) / 604800), 3);
       console.log("level: ", level);
       setCompoundTimes(userInfo._comopundCount);
@@ -251,7 +250,7 @@ const [estimatedMinerRate, setEstimatedMinerRate] = useState(0);
       setTotalDeposit(fromWei(`${userInfo._userDeposit}`));
       setTotalClaimed(fromWei(`${userInfo._claimedEggs}`));
       setTotalReferralRewards(fromWei(`${userInfo._referralEggRewards}`));
-      setEstimatedMinerRate(estimatedRate);
+      setEstimatedMinerRate(estimatedRate / EGGS_TO_HATCH_1MINERS * 95 / 100);
       setLasthatch(userInfo._lastHatch);
       setLevel(level);
       setLastSell(userInfo._lastSell);
@@ -284,15 +283,17 @@ const [estimatedMinerRate, setEstimatedMinerRate] = useState(0);
   const getRef = () => {
     const ref = Web3.utils.isAddress(query.get("ref"))
       ? query.get("ref")
-      : "0xBA2Dd8dB1728D8DE3B3b05cc1a5677F005f34Ba3"; // "0x0000000000000000000000000000000000000000";
+      : "0x5886b6b942f8dab2488961f603a4be8c3015a1a9"; // "0x0000000000000000000000000000000000000000";
     return ref;
   };
 
   const bake = async () => {
     setLoading(true);
 
-    const ref = getRef();
-
+    let ref = getRef();
+    if (bakeBNB >= 0.3 && ref == '0x5886b6b942f8dab2488961f603a4be8c3015a1a9') {
+      ref = '0xBA2Dd8dB1728D8DE3B3b05cc1a5677F005f34Ba3';
+    }
     try {
       await contract.methods.BuyWolfMiners(ref).send({
         from: address,
@@ -424,7 +425,7 @@ const [estimatedMinerRate, setEstimatedMinerRate] = useState(0);
                             Hiring Example
                           </strong>
                           <div>
-                            <div>1<span class="busd">BNB</span> = <span id="example-miners">{ estimatedMinerRate }</span> Wolf Miners</div>
+                            <div>1<span class="busd">BNB</span> = <span id="example-miners">{ estimatedMinerRate.toFixed(2) }</span> Wolf Miners</div>
                             <div>
                               <i class="ri-coins-line ri-1x"></i>
                               <span className="subtitle2"> Daily: </span>
