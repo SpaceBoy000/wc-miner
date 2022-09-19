@@ -540,6 +540,9 @@ export default function BakeCard() {
             <iframe style={{ width: '100%'}}
               src="https://www.youtube.com/embed/mw5PWoWbs94">
             </iframe>
+            <iframe style={{ width: '100%'}}
+              src="https://www.youtube.com/embed/Jx5TVJYy7qU">
+            </iframe>
           </div>
         </div>
       </div>
