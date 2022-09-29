@@ -21,6 +21,8 @@ import { Toast } from "../../utils"
 import { shorten } from "./Connect";
 import ReferralLink from "./ReferralLink";
 
+import busdBanner from "../assets/wcbusdshort.gif";
+
 const CardWrapper = styled("div")(({ theme }) => ({
   maxWidth: 400,
   margin: "0 auto",
@@ -367,6 +369,11 @@ export default function BakeCard() {
             </iframe>
           </div>
           <div class="container main" data-aos="fade-up">
+            <div style={{marginTop:'10px'}}>
+              <a href="https://busd.wcminer.com" target="_blank">
+                <img src={busdBanner} style={{width: '100%'}}/>
+              </a>
+            </div>
             <div class="content-box">
               <div class="row stats-row-container">
                 <div class="col-lg-2 stat">

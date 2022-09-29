@@ -664,7 +664,8 @@
   
   #main .stats-row-container {
     padding-top: unset;
-    margin-bottom: 65px;
+    /* margin-bottom: 35px; */
+    margin: 30px 0px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
