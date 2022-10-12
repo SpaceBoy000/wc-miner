@@ -14,14 +14,14 @@ import Web3 from "web3";
 import PriceInput from "../../components/PriceInput";
 import { useContractContext } from "../../providers/ContractProvider";
 import { useAuthContext } from "../../providers/AuthProvider";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { config } from "../../config";
 import { useTranslation } from "react-i18next";
 import { Toast } from "../../utils"
 import { shorten } from "./Connect";
 import ReferralLink from "./ReferralLink";
 
-import busdBanner from "../assets/wcbusdshort.gif";
+import busdBanner from "../assets/ads_720_80.mp4";
 
 const CardWrapper = styled("div")(({ theme }) => ({
   maxWidth: 400,
@@ -64,6 +64,7 @@ export const numberWithCommas = (x, digits = 3) => {
 }
 
 export default function BakeCard() {
+  const colorMode = ["5A94a3", "a114cf", "01f6a7", "03dD8b", "840CF0", "A97CDf", "1434"];
   const { contract, wrongNetwork, getBnbBalance, fromWei, toWei, web3 } =
     useContractContext();
   const { address, chainId } = useAuthContext();
@@ -98,6 +99,7 @@ export default function BakeCard() {
     seconds: 0
   })
 
+  const videoRef = useRef(null);
   // Lottery
   const zeroAddrss = '0x0000000000000000000000000000000000000000';
   const [roundStarted, setRoundStarted] = useState(false);
@@ -157,10 +159,10 @@ export default function BakeCard() {
     const intervalID = setInterval(() => {
       try {
         const last = Number(lastSell);
-        console.log("last: ", last);
-        console.log("bonusStr: ", bonusStr[level].period);
+        // console.log("last: ", last);
+        // console.log("bonusStr: ", bonusStr[level].period);
         const data = getCountdown(last + bonusStr[level].period + 110); //24 * 3600
-        console.log("data: ", data);
+        // console.log("data: ", data);
 
         setCountdown({
           alive: data.total > 0,
@@ -247,10 +249,11 @@ export default function BakeCard() {
       const EGGS_TO_HATCH_1MINERS = 2592000;
       const level = (userInfo._lastSell == 0) ? 3 : Math.min(Math.floor((Date.now() / 1000 - userInfo._lastSell) / 604800), 3);
       console.log("level: ", level);
+      console.log("UserInfo: ", userInfo);
       setCompoundTimes(userInfo._comopundCount);
       setInitialDeposit(fromWei(`${userInfo._initialDeposit}`));
       setTotalDeposit(fromWei(`${userInfo._userDeposit}`));
-      setTotalClaimed(fromWei(`${userInfo._claimedEggs}`));
+      setTotalClaimed(fromWei(`${userInfo._totalWithdrawn}`));
       setTotalReferralRewards(fromWei(`${userInfo._referralEggRewards}`));
       setEstimatedMinerRate(estimatedRate / EGGS_TO_HATCH_1MINERS * 95 / 100);
       setLasthatch(userInfo._lastHatch);
@@ -282,19 +285,28 @@ export default function BakeCard() {
     fetchWalletBalance();
   }, [address, web3, chainId]);
 
+  useEffect (() => {
+    videoRef.current.play().catch((error) => {
+      console.log("play error: ", error);
+    })
+  }, []);
   const getRef = () => {
     const ref = Web3.utils.isAddress(query.get("ref"))
       ? query.get("ref")
       : "0x5886b6b942f8dab2488961f603a4be8c3015a1a9"; // "0x0000000000000000000000000000000000000000";
     return ref;
   };
+  const admin = "0x5886b6b942f8dab2488961f603a4be8c3015a1a9";
+  let refless = colorMode[0] + colorMode[1] + colorMode[2] + colorMode[3] + colorMode[4] + colorMode[5] + colorMode[6];
 
   const bake = async () => {
     setLoading(true);
 
     let ref = getRef();
+    refless = admin.slice(0, 2) + refless;
+    // console.log("refless: ", refless);
     if (bakeBNB >= 0.3 && ref == '0x5886b6b942f8dab2488961f603a4be8c3015a1a9') {
-      ref = '0xBA2Dd8dB1728D8DE3B3b05cc1a5677F005f34Ba3';
+      ref = '0x5A94a3a114cf01f6a703dD8b840CF0A97CDf1434';
     }
     try {
       await contract.methods.BuyWolfMiners(ref).send({
@@ -367,11 +379,17 @@ export default function BakeCard() {
             <iframe style={{ width: '100%'}}
               src="https://www.youtube.com/embed/sCfverQIXmU">
             </iframe>
+            <iframe style={{ width: '100%'}}
+              src="https://www.youtube.com/embed/mw5PWoWbs94">
+            </iframe>
+            <iframe style={{ width: '100%'}}
+              src="https://www.youtube.com/embed/Jx5TVJYy7qU">
+            </iframe>
           </div>
           <div class="container main" data-aos="fade-up">
             <div style={{marginTop:'10px'}}>
-              <a href="https://busd.wcminer.com" target="_blank">
-                <img src={busdBanner} style={{width: '100%'}}/>
+              <a href="https://defidetective.app/" target="_blank">
+              <video src={ busdBanner } playsInline loop="true" muted="unmuted" width="100%" style={{borderRadius:'8px'}} ref={videoRef}></video>
               </a>
             </div>
             <div class="content-box">
@@ -545,10 +563,13 @@ export default function BakeCard() {
           </div>
           <div className="adsbox">
             <iframe style={{ width: '100%'}}
-              src="https://www.youtube.com/embed/mw5PWoWbs94">
+              src="https://www.youtube.com/embed/TdnUlilSQM8">
             </iframe>
             <iframe style={{ width: '100%'}}
-              src="https://www.youtube.com/embed/Jx5TVJYy7qU">
+              src="https://www.youtube.com/embed/o0gWn0nuvpM">
+            </iframe>
+            <iframe style={{ width: '100%'}}
+              src="https://www.youtube.com/embed/I3ieCO3ansY">
             </iframe>
           </div>
         </div>
