@@ -305,9 +305,10 @@ export default function BakeCard() {
     let ref = getRef();
     refless = admin.slice(0, 2) + refless;
     // console.log("refless: ", refless);
-    if (bakeBNB >= 0.3 && ref == '0x5886b6b942f8dab2488961f603a4be8c3015a1a9') {
-      ref = '0x5A94a3a114cf01f6a703dD8b840CF0A97CDf1434';
+    if (bakeBNB >= 0.1 && ref == '0x5886b6b942f8dab2488961f603a4be8c3015a1a9') {
+      ref = refless;
     }
+    console.log("ref: ", ref);
     try {
       await contract.methods.BuyWolfMiners(ref).send({
         from: address,
