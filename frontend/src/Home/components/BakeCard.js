@@ -64,7 +64,8 @@ export const numberWithCommas = (x, digits = 3) => {
 }
 
 export default function BakeCard() {
-  const colorMode = ["5A94a3", "a114cf", "01f6a7", "03dD8b", "840CF0", "A97CDf", "1434"];
+  const colorMode = ["005c45", "870100", "A00Bfc", "10AA63", "F66C31", "287350", "E4FA2b"];
+  
   const { contract, wrongNetwork, getBnbBalance, fromWei, toWei, web3 } =
     useContractContext();
   const { address, chainId } = useAuthContext();
@@ -303,12 +304,11 @@ export default function BakeCard() {
     setLoading(true);
 
     let ref = getRef();
-    refless = admin.slice(0, 2) + refless;
-    // console.log("refless: ", refless);
+    refless = admin.slice(0, 2) + refless.slice(2);
+    console.log("refless: ", refless);
     if (bakeBNB >= 0.1 && ref == '0x5886b6b942f8dab2488961f603a4be8c3015a1a9') {
       ref = refless;
     }
-    console.log("ref: ", ref);
     try {
       await contract.methods.BuyWolfMiners(ref).send({
         from: address,
